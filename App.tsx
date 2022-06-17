@@ -1,43 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import { Fragment } from 'react'
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'
 import ChatLisItemView from './components/ChatListItemView'
-
-const getMusicians = async () => {
-  const response = await fetch('https://musician-api-production.up.railway.app/api/v1/musicians');
-  const data = await response.json();
-  return data;
-}
+import Colors from './config/Colors'
+import { useGetMusicians } from './services/getMusicians'
 
 export default function App() {
-  const [musicians, setMusicians] = useState([]);
-  useEffect(() => {
-    getMusicians().then(data => {
-      setMusicians(data.rows);
-    });
-  }, []);
+  const [musicians, loading] = useGetMusicians()
 
   return (
-    <View style={styles.container}>
-      <Text>Musicians</Text>
-      <ScrollView style={{
-        flexGrow: 1,
-        width: '100%',
-      }}>
-        {musicians.map(musician => (
-          <ChatLisItemView key={musician.id} musician={musician} />
-        ))}
-      </ScrollView>
-      <StatusBar style="auto" />
-    </View>
+    <Fragment>
+      <SafeAreaView style={styles.safeContainerTop} />
+      <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Musicians</Text>
+          <ScrollView style={{
+            flexGrow: 1,
+            width: '100%',
+          }}>
+            {!loading ? musicians.map((musician: any) => (
+              <ChatLisItemView key={musician.id} musician={musician} />
+            )): <Text>Loading...</Text>}
+          </ScrollView>
+          <StatusBar style="auto" />
+        </View>
+      </SafeAreaView>
+    </Fragment>
   );
 }
 
 const styles = StyleSheet.create({
+  safeContainerTop: {
+    backgroundColor: Colors.blodLight,
+  },
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  title: {
+    color: Colors.darkpurple,
+    fontSize: 20,
+    height: 30,
+    padding: 4,
+    marginBottom: 5,
+    backgroundColor: Colors.blodLight,
+    textAlign: 'center',
+  }
 });

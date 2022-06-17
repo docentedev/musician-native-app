@@ -1,80 +1,122 @@
-import { TouchableWithoutFeedback, View, StyleSheet, Text } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import React, { Fragment } from 'react';
+import { View, StyleSheet, Text, Image, TouchableHighlight, Alert, Animated } from 'react-native'
+import { Eye, Trash2 } from 'react-native-feather'
+import Colors from '../config/Colors';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.white,
-    },
-    mainCardView: {
-        height: 60,
-        alignItems: 'center',
-        // justifyContent: 'center',
-        backgroundColor: Colors.white,
-        borderRadius: 3,
-        shadowColor: Colors.shadow,
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-        elevation: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 16,
-        paddingRight: 14,
-        marginTop: 6,
-        marginBottom: 6,
-        marginLeft: 16,
-        marginRight: 16,
-    },
-    subCardView: {
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-        backgroundColor: Colors.history_back,
-        borderColor: Colors.color_eeeeee,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+const deleteAlert = (musician: any) => () =>
+    Alert.alert(
+        'Delete musician',
+        `Are you sure you want to delete ${musician.first_name} ${musician.last_name}?`,
+        [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel action'),
+                style: 'cancel'
+            },
+            { text: 'Ok', onPress: () => console.log('Musician deleted') }
+        ]
+    )
 
-const chatListItemView = ({musician: item, index}) => {
+const viewAlert = (musician: any) => () =>
+    Alert.alert(
+        `${musician.first_name} ${musician.last_name}`,
+        musician.description,
+        [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel action'),
+                style: 'cancel'
+            },
+        ]
+    )
+
+const chatListItemView = ({ musician: item, index }: any) => {
     return (
-        <TouchableWithoutFeedback
-            onPress={() => {}}>
-            <View style={styles.mainCardView}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{ marginLeft: 12 }}>
-                        <Text
-                            style={{
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: 'bold',
-                                //fontFamily: Fonts.nunitoBold,
-                                textTransform: 'capitalize',
-                            }}>
-                            {item.first_name} {item.last_name}
-                        </Text>
-                        <View
-                            style={{
-                                marginTop: 4,
-                                borderWidth: 0,
-                                width: '85%',
-                            }}>
-                            <Text
-                                style={{
-                                    color: 'rgba(0,0,0,0.5)',
-                                    fontSize: 12,
-                                }}>
-                                {item.alias}
-                            </Text>
+        <Fragment>
+            <View style={styles.wrapper}>
+                <View style={styles.container}>
+                    <View>
+                        <Image
+                            style={styles.image}
+                            source={{ uri: `https://musician-api-production.up.railway.app/api/v1/files/${item.image}` }}
+                        />
+                    </View>
+                    <View style={styles.textContent}>
+                        <Text style={styles.text}>{item.first_name} {item.last_name}</Text>
+                        <Text style={styles.text}>{item.alias || '...'}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <View style={styles.iconContent}>
+                            <TouchableHighlight style={styles.actionButton} onPress={viewAlert(item)}>
+                                <Eye color={Colors.turquoise} width={16} />
+                            </TouchableHighlight>
+                            <TouchableHighlight style={styles.actionButton} onPress={deleteAlert(item)}>
+                                <Trash2 color={Colors.blodLight} width={16} />
+                            </TouchableHighlight>
                         </View>
                     </View>
                 </View>
             </View>
-        </TouchableWithoutFeedback>
+        </Fragment>
     );
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        flexDirection: 'row',
+        flex: 1,
+        padding: 2,
+    },
+    container: {
+        flexDirection: 'row',
+        flex: 1,
+        backgroundColor: Colors.darkpurple,
+        alignContent: 'center',
+        padding: 10,
+        borderRadius: 10,
+    },
+    textContent: {
+        flex: 1,
+        paddingLeft: 10,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'flex-start',
+    },
+    text: {
+        color: Colors.snow
+    },
+    image: {
+        width: 40,
+        height: 40,
+        borderRadius: 20
+    },
+    iconContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'flex-end',
+    },
+    iconContent: {
+        flexDirection: 'row',
+        backgroundColor: Colors.turquoise,
+        padding: 5,
+        paddingBottom: 3,
+        paddingTop: 3,
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        borderRadius: 15,
+        width: 75,
+        height: 38,
+    },
+    actionButton: {
+        backgroundColor: Colors.darkpurple,
+        borderRadius: 15,
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+});
 
 export default chatListItemView;
