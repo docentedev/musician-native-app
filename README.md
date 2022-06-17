@@ -8,4 +8,4 @@ https://docs.swmansion.com/react-native-gesture-handler/docs/#installation
 
 Image App
 
-![AppV1.png](./docs/AppV1.png)
+![AppV1.png](./docs/v1App.png)
