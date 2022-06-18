@@ -27,4 +27,6 @@ Image App
 
 - v2.0.0
 
+<img src="./docs/v2.png" height="60" width="60" >
+
 ![v2.png](./docs/v2.png)
