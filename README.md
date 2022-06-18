@@ -21,7 +21,7 @@
 
 Image App
 
-<div style="display: flex; flex-direction: column; align-items: center;">
+<div style="display: flex; flex-direction: row; align-items: center;">
     <div style="flex: 1">
         <h6>v1</h6>
         <img src="./docs/v1.png" width="245" >
