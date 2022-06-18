@@ -23,7 +23,7 @@ Image App
 
 - v1.0.0
 
-![AppV1.png](./docs/v1App.png)
+![v1.png](./docs/v1.png)
 
 - v2.0.0
 
