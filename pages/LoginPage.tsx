@@ -8,43 +8,10 @@ import {
     Button,
 } from 'react-native'
 import Nav from '../components/Nav'
-import apis from '../config/apis'
 import Colors from '../config/Colors'
 import Sizes from '../config/Sizes'
 import { useAuth } from '../contexts/AuthContext'
-
-const useLogin = () => {
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
-
-    const handleLogin = async ({ username, password }: any) => {
-        setLoading(true)
-        setError('')
-        try {
-            const response = await fetch(`${apis.auth}/users/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            })
-            const data = await response.json()
-            if (data.error) {
-                setError(data.error)
-            } else {
-                console.log(data)
-                setLoading(false)
-                return data.token
-            }
-        } catch (err: any) {
-            setError(err.message)
-            setLoading(false)
-            throw err
-        }
-    }
-
-    return { loading, error, handleLogin }
-}
+import useLogin from '../hooks/useLogin'
 
 const LoginPage = () => {
     const [account, setAccount] = useState({
@@ -94,7 +61,8 @@ const LoginPage = () => {
                         onPress={async () => {
                             const data = await login.handleLogin(account)
                             if (data) {
-                                auth.setData({ key: 'token', value: data })
+                                await auth.setData({ key: 'token', value: data })
+                                login.goTo('/create')
                             }
                         }}
                     />

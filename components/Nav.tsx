@@ -1,9 +1,11 @@
 import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Button, TouchableHighlight } from "react-native"
 import { Link, useLocation } from "react-router-native"
-import { Home, Plus, LogIn } from 'react-native-feather'
+import { Home, Plus, LogIn, LogOut } from 'react-native-feather'
 import Colors from "../config/Colors"
 import Sizes from "../config/Sizes"
+import { useAuth } from "../contexts/AuthContext"
+import useLogin from '../hooks/useLogin'
 
 const getActive = (location: any) => (path: string, active: any, inactive: any) => {
     return location.pathname === path ? active : inactive
@@ -12,9 +14,18 @@ const getActive = (location: any) => (path: string, active: any, inactive: any) 
 const Nav = ({ title }: { title: string }) => {
     const location = useLocation()
     const isActive = getActive(location)
+    const auth = useAuth()
+    const login = useLogin()
+
+    const handleLogout = async () => {
+        await auth.setData({ key: 'logout', value: '' })
+        login.goTo('/')
+    }
     return (
         <View style={styles.container}>
-            <Text style={styles.brand}>{title}</Text>
+            <Text style={styles.brand}>
+                {title} {auth.data.isLogin && auth.data.token.username}
+            </Text>
             <Link to="/">
                 <View style={[
                     styles.link,
@@ -26,7 +37,7 @@ const Nav = ({ title }: { title: string }) => {
                     />
                 </View>
             </Link>
-            <Link to="/create">
+            {auth.data.isLogin && <Link to="/create">
                 <View style={[
                     styles.link,
                     isActive('/create', styles.ative, styles.inactive)
@@ -36,8 +47,20 @@ const Nav = ({ title }: { title: string }) => {
                         color={isActive('/create', Colors.turquoise, Colors.snow)}
                     />
                 </View>
-            </Link>
-            <Link to="/login">
+            </Link>}
+            {auth.data.isLogin ? (
+                <TouchableHighlight onPress={handleLogout}>
+                    <View style={[
+                        styles.link,
+                        isActive('/login', styles.ative, styles.inactive)
+                    ]}>
+                        <LogOut
+                            width={Sizes.x2}
+                            color={Colors.blodLight}
+                        />
+                    </View>
+                </TouchableHighlight>
+            ) : (<Link to="/login">
                 <View style={[
                     styles.link,
                     isActive('/login', styles.ative, styles.inactive)
@@ -47,7 +70,7 @@ const Nav = ({ title }: { title: string }) => {
                         color={isActive('/login', Colors.turquoise, Colors.snow)}
                     />
                 </View>
-            </Link>
+            </Link>)}
         </View>
     )
 }
