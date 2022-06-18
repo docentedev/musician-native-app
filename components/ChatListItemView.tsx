@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { View, StyleSheet, Text, Image, TouchableHighlight, Alert, Animated } from 'react-native'
 import { Eye, Trash2 } from 'react-native-feather'
+import { musicianApiPrefix } from '../config/apis';
 import Colors from '../config/Colors';
 
 const deleteAlert = (musician: any) => () =>
@@ -38,7 +39,7 @@ const chatListItemView = ({ musician: item, index }: any) => {
                     <View>
                         <Image
                             style={styles.image}
-                            source={{ uri: `https://musician-api-production.up.railway.app/api/v1/files/${item.image}` }}
+                            source={{ uri: musicianApiPrefix(`/files/${item.image}`) }}
                         />
                     </View>
                     <View style={styles.textContent}>

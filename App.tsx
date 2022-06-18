@@ -1,31 +1,29 @@
 import { StatusBar } from 'expo-status-bar'
-import { Fragment } from 'react'
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'
-import ChatLisItemView from './components/ChatListItemView'
+import { StyleSheet, SafeAreaView } from 'react-native'
+import { Route, Routes } from 'react-router-native'
+import RoutesWrap from './components/Routes'
 import Colors from './config/Colors'
-import { useGetMusicians } from './services/getMusicians'
+import AuthProvider from './contexts/AuthContext'
+import CreatePage from './pages/CreatePage'
+import IndexPage from './pages/IndexPage'
+import LoginPage from './pages/LoginPage'
 
 export default function App() {
-  const [musicians, loading] = useGetMusicians()
-
   return (
-    <Fragment>
-      <SafeAreaView style={styles.safeContainerTop} />
-      <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Musicians</Text>
-          <ScrollView style={{
-            flexGrow: 1,
-            width: '100%',
-          }}>
-            {!loading ? musicians.map((musician: any) => (
-              <ChatLisItemView key={musician.id} musician={musician} />
-            )): <Text>Loading...</Text>}
-          </ScrollView>
+    <AuthProvider>
+      <RoutesWrap>
+        <SafeAreaView style={styles.safeContainerTop} />
+        <SafeAreaView style={styles.safeContainer}>
+          <Routes>
+            <Route path="/" element={<IndexPage />} />
+            <Route path="/create" element={<CreatePage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='*' element={<IndexPage />} />
+          </Routes>
           <StatusBar style="auto" />
-        </View>
-      </SafeAreaView>
-    </Fragment>
+        </SafeAreaView>
+      </RoutesWrap>
+    </AuthProvider>
   );
 }
 
@@ -37,16 +35,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
-  container: {
-    flex: 1,
-  },
-  title: {
-    color: Colors.darkpurple,
-    fontSize: 20,
-    height: 30,
-    padding: 4,
-    marginBottom: 5,
-    backgroundColor: Colors.blodLight,
-    textAlign: 'center',
-  }
 });
