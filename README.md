@@ -23,8 +23,8 @@ Image App
 
 - v1.0.0
 
-![docs/AppV1.png](./docs/v1App.png | width=100)
+![AppV1.png](./docs/v1App.png)
 
 - v2.0.0
 
-![docs/v2.png](./docs/v1App.png | width=100)
+![v2.png](./docs/v2.png)
