@@ -27,6 +27,7 @@ Image App
 
 - v2.0.0
 
+<img src="./docs/v1.png" width="245" >
 <img src="./docs/v2.png" width="245" >
 
 ![v2.png](./docs/v2.png)
