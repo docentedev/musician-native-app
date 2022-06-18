@@ -22,11 +22,11 @@
 Image App
 
 <div style="display: flex; flex-direction: column; align-items: center;">
-    <div>
+    <div style="flex: 1">
         <h6>v1</h6>
         <img src="./docs/v1.png" width="245" >
     </div>
-    <div>
+    <div style="flex: 1">
         <h6>v2</h6>
         <img src="./docs/v2.png" width="245" >
     </div>
