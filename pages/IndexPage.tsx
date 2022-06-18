@@ -24,7 +24,7 @@ const IndexPage = () => {
                 )) : <Text>Loading...</Text>}
             </ScrollView>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.blodLight,
         textAlign: 'center',
     }
-});
+})
 
-export default IndexPage;
+export default IndexPage

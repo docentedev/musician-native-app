@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react'
 import {
     ImageBackground,
     StyleSheet,
@@ -7,9 +7,9 @@ import {
 } from 'react-native'
 
 import Swiper from 'react-native-swiper'
-import { musicianApiPrefix } from '../config/apis';
-import Colors from '../config/Colors';
-import Sizes from '../config/Sizes';
+import { musicianApiPrefix } from '../config/apis'
+import Colors from '../config/Colors'
+import Sizes from '../config/Sizes'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 
 const Carousel = ({ data }: any) => {

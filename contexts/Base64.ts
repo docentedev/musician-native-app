@@ -1,17 +1,17 @@
 // @flow
 // Inspired by: https://github.com/davidchambers/Base64.js/blob/master/base64.js
 
-const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
 const Base64 = {
     btoa: (input: string = '') => {
         let str = input;
-        let output = '';
+        let output = ''
 
         for (let block = 0, charCode, i = 0, map = chars;
             str.charAt(i | 0) || (map = '=', i % 1);
             output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
 
-            charCode = str.charCodeAt(i += 3 / 4);
+            charCode = str.charCodeAt(i += 3 / 4)
 
             if (charCode > 0xFF) {
                 throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
@@ -24,8 +24,8 @@ const Base64 = {
     },
 
     atob: (input: string = '') => {
-        let str = input.replace(/=+$/, '');
-        let output = '';
+        let str = input.replace(/=+$/, '')
+        let output = ''
 
         if (str.length % 4 == 1) {
             throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");

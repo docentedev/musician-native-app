@@ -1,27 +1,27 @@
-import { useNavigate } from 'react-router-native';
+import { useNavigate } from 'react-router-native'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import * as SecureStore from 'expo-secure-store'
-import Base64 from './Base64';
+import Base64 from './Base64'
 
 const save = async (key: string, value: any) => {
-    await SecureStore.setItemAsync(key, value);
+    await SecureStore.setItemAsync(key, value)
 }
 
 const deleteValueFor = async (key: string) => {
-    await SecureStore.deleteItemAsync(key);
+    await SecureStore.deleteItemAsync(key)
 }
 
 const getValueFor = async (key: string) => {
-    let result = await SecureStore.getItemAsync(key);
+    let result = await SecureStore.getItemAsync(key)
     return result
 }
 
 const parseJwt = (token: string) => {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
     const jsonPayload = decodeURIComponent(Base64.atob(base64).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    }).join(''))
 
     const model = JSON.parse(jsonPayload)
     model.initData = new Date(Number(model.iat + '000'))
@@ -58,7 +58,6 @@ const AuthProvider = ({ children }: any) => {
                 newData.token = JSON.parse(lsData)
                 newData.isLogin = true
             }
-            console.log('Auth Provider: ', newData)
             setData(newData)
         })()
     }, [])

@@ -19,7 +19,8 @@
     "react-native-swiper": "^1.6.0",
     "react-native-web": "0.17.7",
     "react-router-native": "^6.3.0",
-    "expo-secure-store": "~11.2.0"
+    "expo-secure-store": "~11.2.0",
+    "react-native-gesture-handler": "~2.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
