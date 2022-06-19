@@ -7,11 +7,11 @@ import SwipeLeft from './SwipeLeft'
 import SwipeRight from './SwipeRight'
 
 const swipeFromLeftOpen = () => {
-    alert('Swipe from left')
+    // alert('Swipe from left')
 }
 
 const swipeFromRightOpen = () => {
-    alert('Swipe from right')
+    // alert('Swipe from right')
 }
 
 const chatListItemView = ({ musician: item, index: _i }: any) => {

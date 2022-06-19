@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, StyleSheet, Button, TouchableHighlight } from "react-native"
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native"
 import { Link, useLocation } from "react-router-native"
 import { Home, Plus, LogIn, LogOut } from 'react-native-feather'
 import Colors from "../config/Colors"
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
         color: Colors.snow,
         flex: 1,
         fontSize: 15,
+        paddingLeft: Sizes.x7,
         marginTop: Sizes.x0_5,
     },
     link: {
