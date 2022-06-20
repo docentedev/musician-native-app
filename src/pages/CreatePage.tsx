@@ -18,8 +18,8 @@ const CreatePage = () => {
         <View style={styles.container}>
             <Nav title="Create Musician" />
             <ScrollView style={styles.mainContainer}>
-                <RectButton onPress={() => sidebarContext.handleOpen()}>
-                    <Settings width={Sizes.x4} color={Colors.turquoise} />
+                <RectButton style={styles.rectButton} onPress={() => sidebarContext.handleOpen()}>
+                    <Settings width={Sizes.x4} color={Colors.blodLight} />
                 </RectButton>
                 <Text style={styles.title}>Private Zone</Text>
             </ScrollView>
@@ -48,6 +48,14 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         backgroundColor: '#fff',
         textAlign: 'center',
+    },
+    rectButton: {
+        backgroundColor: '#fff',
+        borderRadius: Sizes.x1,
+        padding: Sizes.x1,
+        marginBottom: Sizes.x1,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })
 

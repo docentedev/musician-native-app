@@ -18,6 +18,9 @@ export const useGetMusicians = () => {
         }).catch(_error => {
             setLoading(false)
         })
+        return () => {
+            setLoading(false)
+        }
     }, [])
     return [data, loading]
 }

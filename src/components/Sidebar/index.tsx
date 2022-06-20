@@ -2,6 +2,7 @@ import { createContext, useState, useRef } from 'react'
 import { View } from 'react-native'
 import { DrawerLayout } from 'react-native-gesture-handler'
 import Colors from '../../config/Colors'
+import { useAuth } from '../../contexts/AuthContext'
 import Menu from './Menu'
 
 const initial: any = {
@@ -13,6 +14,7 @@ const initial: any = {
 const SidebarContext = createContext(initial)
 
 const Provider = ({ children }: any) => {
+    const auth = useAuth()
     const [open, setOpen] = useState(false)
     const drawer = useRef<any>(null)
     const handleDrawerSlide = (_status: any) => {
@@ -52,7 +54,7 @@ const Provider = ({ children }: any) => {
                 handleToggle,
             }}
         >
-            <DrawerLayout
+            {auth.data.isLogin ? <DrawerLayout
                 ref={drawer}
                 drawerWidth={300}
                 drawerPosition={'left'}
@@ -64,7 +66,7 @@ const Provider = ({ children }: any) => {
                 onDrawerClose={() => setOpen(false)}
             >
                 {children}
-            </DrawerLayout>
+            </DrawerLayout>: children}
         </SidebarContext.Provider>
     )
 }
